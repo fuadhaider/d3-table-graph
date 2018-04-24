@@ -46,7 +46,7 @@ $( document ).ready(function() {
         //get number of columns
         // var colcount = columns.length;
 
-        newrow = "<tr><td>" +  columns[0] +  "</td><td>" +  columns[1] +  "</td></tr>";  
+        newrow = "<tr><td>" +  columns[0] +  "</td><td><input value=\"" +  columns[1] +  "\"></td></tr>";  
         $('#tableMain').append(newrow);						
       }
     }
@@ -61,22 +61,22 @@ var width = window.innerWidth * 0.8;
 var height = window.innerHeight / 2;
 
 // parsing date with month name
-var parseTime = d3.timeParse("%d-%b-%y");
-
-// setting x y ranges
-var x = d3.scaleTime().range([0, width]);
-var y = d3.scaleLinear().range([height, 0]);
- 
-var xyGraph = d3.select("#xy-graph"); 
-
-// Getting CSV data
-// function loadCSV(url) {
-  // console.log(url);
-  
-  // defining graph line
-  var valueline = d3.line()
-      .x(function(d) { return x(d.date); })
-      .y(function(d) { return y(d.price); });
+// var parseTime = d3.timeParse("%d-%b-%y");
+// 
+// // setting x y ranges
+// var x = d3.scaleTime().range([0, width]);
+// var y = d3.scaleLinear().range([height, 0]);
+//  
+// var xyGraph = d3.select("#xy-graph"); 
+// 
+// // Getting CSV data
+// // function loadCSV(url) {
+//   // console.log(url);
+//   
+//   // defining graph line
+//   var valueline = d3.line()
+//       .x(function(d) { return x(d.date); })
+//       .y(function(d) { return y(d.price); });
 
   // d3.csv(url).then(function(data {
   function loadCharts() {
@@ -91,13 +91,30 @@ var xyGraph = d3.select("#xy-graph");
     //     // + $(tr).find('td:eq(3)').text() + ' '  // Task
     //     + '\n';
     // });
+    // parsing date with month name
+    var parseTime = d3.timeParse("%d-%b-%y");
+
+    // setting x y ranges
+    var x = d3.scaleTime().range([0, width]);
+    var y = d3.scaleLinear().range([height, 0]);
+     
+    var xyGraph = d3.select("#xy-graph"); 
+
+    // Getting CSV data
+    // function loadCSV(url) {
+      // console.log(url);
+      
+      // defining graph line
+      var valueline = d3.line()
+          .x(function(d) { return x(d.date); })
+          .y(function(d) { return y(d.price); });
     
     var data = new Array();
     
     $('#tableMain tr').each(function(row, tr) {
         data[row] = {
             "date" : $(tr).find('td:eq(0)').text()
-            , "price" :$(tr).find('td:eq(1)').text()
+            , "price" :$(tr).find('input').val()
             // , "description" : $(tr).find('td:eq(2)').text()
             // , "task" : $(tr).find('td:eq(3)').text()
         }
@@ -132,6 +149,14 @@ var xyGraph = d3.select("#xy-graph");
       .attr("cx", function(d) { return x(d.date); })
       .attr("cy", function(d) { return y(d.price); });
       
+    xyGraph.selectAll("circle")
+      .data(data)
+      // .filter(function(d) { return d.year == '2008' })
+      .attr("class", "circle")
+      .attr("r", 6)
+      .attr("cx", function(d) { return x(d.date); })
+      .attr("cy", function(d) { return y(d.price); });
+      
       xyGraph.selectAll("circle")
         .data(data)
       .on("click", function(d){
@@ -139,7 +164,7 @@ var xyGraph = d3.select("#xy-graph");
         // console.log(data.indexof(d.price));
         // $('tr').addClass('hot' );
         
-      })
+      });
         
     // xyGraph.select("path")    
     //     .on("mouseover", function(data){

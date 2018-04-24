@@ -15,7 +15,7 @@
 
 .circle {
   fill: #3ebdb2;
-    stroke: #3ebdb2;
-    cursor: pointer;
+  /*stroke: #3ebdb2;*/
+  cursor: pointer;
 
 }
