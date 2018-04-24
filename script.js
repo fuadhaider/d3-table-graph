@@ -27,6 +27,8 @@
 // }
 $( document ).ready(function() {
   $('#upload-file').click(function () {
+    $("#tableMain tr").remove();
+
     // console.log(this.files);
     var rdr = new FileReader();
     // console.log(rdr);
@@ -49,3 +51,79 @@ $( document ).ready(function() {
     rdr.readAsText($("#csv-file")[0].files[0]);
   });
 });      
+
+//chart
+// taking window measurements
+var width = window.innerWidth * 0.8;
+var height = window.innerHeight / 2;
+
+// parsing date with month name
+var parseTime = d3.timeParse("%d-%b-%y");
+
+// setting x y ranges
+var x = d3.scaleTime().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]);
+
+ 
+var xyGraph = d3.select("#xy-graph"); 
+
+// Getting CSV data
+// function loadCSV(url) {
+  // console.log(url);
+  
+  // defining graph line
+  var valueline = d3.line()
+      .x(function(d) { return x(d.date); })
+      .y(function(d) { return y(d.price); });
+      
+  // d3.csv(url).then(function(data {
+  function loadCharts() {
+    // var data = $('tbody tr').first().find('td:eq(0)').toArray();
+    
+    // var data;
+    // $('#tableMain tr').each(function(row, tr){
+    // data = data 
+    //     + $(tr).find('td:eq(0)').text() + ' '  // Task No.
+    //     + $(tr).find('td:eq(1)').text() + ' '  // Date
+    //     // + $(tr).find('td:eq(2)').text() + ' '  // Description
+    //     // + $(tr).find('td:eq(3)').text() + ' '  // Task
+    //     + '\n';
+    // });
+    
+    var data = new Array();
+    
+    $('#tableMain tr').each(function(row, tr){
+        data[row]={
+            "date" : $(tr).find('td:eq(0)').text()
+            , "price" :$(tr).find('td:eq(1)').text()
+            // , "description" : $(tr).find('td:eq(2)').text()
+            // , "task" : $(tr).find('td:eq(3)').text()
+        }
+    }); 
+    data.shift();  // first row is the table header - so remove
+
+    console.log(data);
+    // formatting data
+    data.forEach(function(d) {
+        d.date = parseTime(d.date);
+        d.price = +d.price;
+    });
+
+    // Scaling range of data
+    x.domain(d3.extent(data, function(d) { return d.date; }));
+    y.domain([0, d3.max(data, function(d) { return d.price; })]);
+
+    // Graph line path.
+    xyGraph.select("path")
+        .data([data])
+        .attr("d", valueline);
+
+    // X Axis
+    xyGraph.select("#x-axis")
+        .call(d3.axisBottom(x));
+
+    // Y Axis
+    xyGraph.select("#y-axis")
+        .call(d3.axisLeft(y));
+  // });
+}
