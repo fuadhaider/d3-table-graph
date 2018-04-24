@@ -8,9 +8,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D3 Graph Table</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
-    
+    <input type="file" id="csv-file" accept=".csv, text/csv">
+    <button type="button" name="button" id="upload-file">Upload</button>
+    <!-- .csv, text/csv -->
+    <!-- <button onclick="myFunction()">Try it</button> -->
+    <!-- <p id="x"></p> -->
+    <div id="table-container">
+      <table class="gridtable" id="tableMain">
+          <thead>
+            <tr class="tableheader">
+                <th>column1</th>
+                <th>column2</th>
+                <!-- <th>column3</th> -->
+                <!-- <th>column4</th> -->
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+    </div>
+
+
     <script src="script.js"></script>
   </body>
 </html>
