@@ -28,27 +28,30 @@
 $( document ).ready(function() {
   $('#upload-file').click(function () {
     $("#tableMain tr").remove();
-
-    // console.log(this.files);
     var rdr = new FileReader();
-    // console.log(rdr);
+    // console.log(rdr); // rdr null object
     rdr.onload = function (e) {
-      //get the rows into an array
+      // console.log(rdr); rdr loaded with \n and ,
       var therows = e.target.result.split("\n");
+      // console.log(therows);
+      //get the rows into an array
+
       //loop through the rows
-      for (var row = 0; row < therows.length; row++  ) {
+      for (var row = 0; row < therows.length; row++ ) {
         //build a new table row
         var newrow = "";
-        //get the columns into an array
+        //get the column cells of each row into individual arrays
         var columns = therows[row].split(",");
+        // console.log(columns);
         //get number of columns
-        var colcount=columns.length;
-        				
+        // var colcount = columns.length;
+
         newrow = "<tr><td>" +  columns[0] +  "</td><td>" +  columns[1] +  "</td></tr>";  
         $('#tableMain').append(newrow);						
       }
     }
     rdr.readAsText($("#csv-file")[0].files[0]);
+    //read first line of file
   });
 });      
 
@@ -63,7 +66,6 @@ var parseTime = d3.timeParse("%d-%b-%y");
 // setting x y ranges
 var x = d3.scaleTime().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
-
  
 var xyGraph = d3.select("#xy-graph"); 
 
@@ -75,7 +77,7 @@ var xyGraph = d3.select("#xy-graph");
   var valueline = d3.line()
       .x(function(d) { return x(d.date); })
       .y(function(d) { return y(d.price); });
-      
+
   // d3.csv(url).then(function(data {
   function loadCharts() {
     // var data = $('tbody tr').first().find('td:eq(0)').toArray();
@@ -92,8 +94,8 @@ var xyGraph = d3.select("#xy-graph");
     
     var data = new Array();
     
-    $('#tableMain tr').each(function(row, tr){
-        data[row]={
+    $('#tableMain tr').each(function(row, tr) {
+        data[row] = {
             "date" : $(tr).find('td:eq(0)').text()
             , "price" :$(tr).find('td:eq(1)').text()
             // , "description" : $(tr).find('td:eq(2)').text()
@@ -101,13 +103,15 @@ var xyGraph = d3.select("#xy-graph");
         }
     }); 
     data.shift();  // first row is the table header - so remove
-
-    console.log(data);
+    //data array of date and price objects
+     
+    // console.log(data);
     // formatting data
     data.forEach(function(d) {
         d.date = parseTime(d.date);
         d.price = +d.price;
     });
+
 
     // Scaling range of data
     x.domain(d3.extent(data, function(d) { return d.date; }));
@@ -127,15 +131,29 @@ var xyGraph = d3.select("#xy-graph");
       .attr("r", 6)
       .attr("cx", function(d) { return x(d.date); })
       .attr("cy", function(d) { return y(d.price); });
+      
+      xyGraph.selectAll("circle")
+        .data(data)
+      .on("click", function(d){
+        console.log(d.price);
+        // console.log(data.indexof(d.price));
+        // $('tr').addClass('hot' );
+        
+      })
         
     // xyGraph.select("path")    
     //     .on("mouseover", function(data){
     //       path.select("td").addClass("hot");
     //     })
     
-    $("circle").on( "click", function() {
-      alert("here");
-    });
+    // $("circle").on( "click", function() {
+    //   // alert("here");
+    //   xyGraph.select("circle")
+    //     .data(data)
+    //     .attr("cx", function(d) { return x(d.date); })
+    //     .attr("cy", function(d) { return y(d.price); });
+    //   console.log(d.date);
+    // });
 
     // X Axis
     xyGraph.select("#x-axis")
