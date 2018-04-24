@@ -1,3 +1,20 @@
 
 
 /*# sourceMappingURL=style.css.map */
+.hot {
+  border: 1px solid green;
+}
+
+
+#xy-line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 6px;
+}
+
+.circle {
+  fill: #3ebdb2;
+    stroke: #3ebdb2;
+    cursor: pointer;
+
+}

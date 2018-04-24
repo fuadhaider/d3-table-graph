@@ -116,7 +116,26 @@ var xyGraph = d3.select("#xy-graph");
     // Graph line path.
     xyGraph.select("path")
         .data([data])
+        // .attr("id", "xy-line")
         .attr("d", valueline);
+        
+    xyGraph.selectAll("circle")
+      .data(data)
+      .enter().append("circle")
+      // .filter(function(d) { return d.year == '2008' })
+      .attr("class", "circle")
+      .attr("r", 6)
+      .attr("cx", function(d) { return x(d.date); })
+      .attr("cy", function(d) { return y(d.price); });
+        
+    // xyGraph.select("path")    
+    //     .on("mouseover", function(data){
+    //       path.select("td").addClass("hot");
+    //     })
+    
+    $("circle").on( "click", function() {
+      alert("here");
+    });
 
     // X Axis
     xyGraph.select("#x-axis")
