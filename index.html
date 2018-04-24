@@ -25,11 +25,18 @@
       <button type="button" name="button" onclick="loadCharts()">Load Chart</button>   
     </nav>
     <p>Click on the buttons to see graphs</p>
-    <svg>
+    <svg id="line-svg">
       <g id="xy-graph">
         <path id="xy-line"></path>
-        <g id="y-axis"></g>
-        <g id="x-axis"></g>
+        <g class="y-axis"></g>
+        <g class="x-axis"></g>
+      </g>
+    </svg>
+    <svg id="bar-svg">
+      <g id="bar-graph">
+        <!-- <path id="xy-bar"></path> -->
+        <g class="y-axis"></g>
+        <g class="x-axis"></g>
       </g>
     </svg>
   

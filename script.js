@@ -99,6 +99,7 @@ var height = window.innerHeight / 2;
     var y = d3.scaleLinear().range([height, 0]);
      
     var xyGraph = d3.select("#xy-graph"); 
+    var barGraph = d3.select("#bar-graph");
 
     // Getting CSV data
     // function loadCSV(url) {
@@ -165,7 +166,22 @@ var height = window.innerHeight / 2;
         // $('tr').addClass('hot' );
         
       });
-        
+      
+      // Graph bar
+      barGraph.selectAll("bar")
+          .data(data)
+          .enter().append("rect")
+          .attr("x", function(d) {return x(d.date); })
+          .attr("width", function(d) { 
+            return 10+"px";
+          })
+          .attr("y", function(d) { return y(d.price); })
+          .attr("height", function(d) { 
+            var h = 1000;
+            // return h+"px";
+            return h - y(d.price);
+          });
+
     // xyGraph.select("path")    
     //     .on("mouseover", function(data){
     //       path.select("td").addClass("hot");
@@ -181,11 +197,19 @@ var height = window.innerHeight / 2;
     // });
 
     // X Axis
-    xyGraph.select("#x-axis")
+    xyGraph.select(".x-axis")
         .call(d3.axisBottom(x));
 
     // Y Axis
-    xyGraph.select("#y-axis")
+    xyGraph.select(".y-axis")
+        .call(d3.axisLeft(y));
+        
+    // X Axis
+    barGraph.select(".x-axis")
+        .call(d3.axisBottom(x));
+
+    // Y Axis
+    barGraph.select(".y-axis")
         .call(d3.axisLeft(y));
   // });
 }
