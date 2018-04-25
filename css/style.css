@@ -5,7 +5,7 @@ body header {
   display: block;
   background-color: lightslategrey; }
   body header h1 {
-    font: 2em arial;
+    font: 4vw arial;
     text-align: center;
     color: lavender; }
 body nav {
