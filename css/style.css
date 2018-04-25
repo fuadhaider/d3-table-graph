@@ -26,6 +26,18 @@ body nav {
 body p {
   text-align: center;
   font: 2vw arial; }
+body .a--to-top {
+  position: fixed;
+  bottom: 5vh;
+  right: 5vw;
+  z-index: 5;
+  background-color: lightslategrey;
+  padding: 5px;
+  border-radius: 5px; }
+  body .a--to-top a {
+    text-decoration: none;
+    color: white;
+    font-family: arial; }
 body .svg-graph {
   width: 100vw;
   height: 60vh; }

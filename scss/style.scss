@@ -40,6 +40,20 @@ body {
     text-align: center;
     font: 2vw arial;
   }
+  .a--to-top {
+    position: fixed;
+    bottom: 5vh;
+    right: 5vw;
+    z-index: 5;
+    background-color: lightslategrey;
+    padding: 5px;
+    border-radius: 5px;
+    a {
+      text-decoration: none;
+      color: white;
+      font-family: arial;
+    }
+  }
   .svg-graph {
     width: $svg-line-graph-width + $svg-line-graph-gap-width * 2;
     height: $svg-line-graph-height + $svg-line-graph-gap-height * 2;
