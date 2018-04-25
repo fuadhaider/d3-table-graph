@@ -2,18 +2,20 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="description" content="Interactive table Graph from uploaded CSV">
+    <meta name="description" content="Interactive table graph from CSV">
     <meta name="keywords" content="HTML5,CSS3,SCSS,JavaScript,D3">
     <meta name="author" content="Fuad Haider">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D3 Graph Table</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script 
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    </script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
   </head>
   <body>
     <header>
-      <h1>Graphs from CSV files</h1>
+      <h1>Table and Graphs from CSV</h1>
     </header>
     
     <nav>
@@ -21,38 +23,27 @@
       <button class="js-button--upload">Load Table</button>
       <button onclick="loadCharts()">Load Chart</button>   
     </nav>
-    <p><b>1. Choose file, 2. load data in bottom table, 3. load or refresh charts</b></p>
+    <p><b>1. Choose file, 2. load data in bottom table, 
+      3. load or refresh charts</b></p>
     <p>File format: CSV file with 2 columns: 1st column with date format 
       31-jan-18, 2nd column with numbers and 1st row with column headings</p>
-    <svg class="svg-line-graph">
-      <g class="js-svg__g-line-graph">
-        <path class="path-xy-line"></path>
+      
+    <svg class="svg-graph">
+      <g class="svg__g-graph" id="js-svg__g-line-graph">
+        <path class="path-xy-line" id="js-svg__path-xy-line"></path>
         <g class="g-y-axis"></g>
         <g class="g-x-axis"></g>
       </g>
     </svg>
-    <svg class="svg-bar-graph">
-      <g class="js-svg__g-bar-graph">
-        <!-- <path id="xy-bar"></path> -->
+    
+    <svg class="svg-graph">
+      <g class="svg__g-graph" id="js-svg__g-bar-graph">
         <g class="g-y-axis"></g>
         <g class="g-x-axis"></g>
       </g>
     </svg>
-  
-    <div id="table-container">
-      <table class="gridtable" id="tableMain">
-          <!-- <thead>
-            <tr class="tableheader">
-                <th>column1</th>
-                <th>column2</th>
-            </tr>
-          </thead> -->
-          <!-- <tbody>
 
-          </tbody> -->
-        </table>
-    </div>
-
+    <table class="table--center" id="js-table"></table>
 
     <script src="script.js"></script>
   </body>

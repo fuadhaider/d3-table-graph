@@ -1,7 +1,7 @@
 
 $( document ).ready(function() {
   $('.js-button--upload').click(function () {
-    $("#tableMain tr").remove();
+    $("#js-table tr").remove();
     var rdr = new FileReader();
     // console.log(rdr); // rdr null object
     rdr.onload = function (e) {
@@ -9,19 +9,22 @@ $( document ).ready(function() {
       var therows = e.target.result.split("\n");
       // console.log(therows);
       //get the rows into an array
-
+      var newrow = "";
+      var columns = therows[0].split(",");
+      newrow = "<tr><td>" +  columns[0] +  "</td><td>" +  columns[1] +  "</td></tr>";  
+      $('#js-table').append(newrow);
       //loop through the rows
-      for (var row = 0; row < therows.length; row++ ) {
+      for (var row = 1; row < therows.length; row++ ) {
         //build a new table row
-        var newrow = "";
+        newrow = "";
         //get the column cells of each row into individual arrays
-        var columns = therows[row].split(",");
+        columns = therows[row].split(",");
         // console.log(columns);
         //get number of columns
         // var colcount = columns.length;
 
         newrow = "<tr><td>" +  columns[0] +  "</td><td><input value=\"" +  columns[1] +  "\"></td></tr>";  
-        $('#tableMain').append(newrow);						
+        $('#js-table').append(newrow);						
       }
     }
     rdr.readAsText($(".js-input")[0].files[0]);
@@ -47,8 +50,8 @@ var height = window.innerHeight / 2;
     var y = d3.scaleLinear().range([height, 0]);
     // var z = d3.scaleBand().rangeRound([0, width], .05).padding(0.1);
 
-    var xyGraph = d3.select(".js-svg__g-line-graph"); 
-    var barGraph = d3.select(".js-svg__g-bar-graph");
+    var xyGraph = d3.select("#js-svg__g-line-graph"); 
+    var barGraph = d3.select("#js-svg__g-bar-graph");
 
     // Getting CSV data
     
@@ -60,7 +63,7 @@ var height = window.innerHeight / 2;
     
     var data = new Array();
     
-    $('#tableMain tr').each(function(row, tr) {
+    $('#js-table tr').each(function(row, tr) {
         data[row] = {
             "date" : $(tr).find('td:eq(0)').text()
             , "price" :$(tr).find('input').val()
@@ -82,7 +85,7 @@ var height = window.innerHeight / 2;
     // z.domain(data.map(function(d) { return d.date; }));
 
     // Graph line path.
-    xyGraph.select(".path-xy-line")
+    xyGraph.select("#js-svg__path-xy-line")
         .data([data])
         .attr("d", valueline);
         
@@ -90,7 +93,7 @@ var height = window.innerHeight / 2;
       .data(data)
       .enter().append("circle")
       // .filter(function(d) { return d.year == '2008' })
-      .attr("class", "circle")
+      .attr("class", "js--circle")
       .attr("r", 6)
       .attr("cx", function(d) { return x(d.date); })
       .attr("cy", function(d) { return y(d.price); });
@@ -98,7 +101,7 @@ var height = window.innerHeight / 2;
     xyGraph.selectAll("circle")
       .data(data)
       // .filter(function(d) { return d.year == '2008' })
-      .attr("class", "circle")
+      .attr("class", "js--circle")
       .attr("r", 6)
       .attr("cx", function(d) { return x(d.date); })
       .attr("cy", function(d) { return y(d.price); });
@@ -106,10 +109,8 @@ var height = window.innerHeight / 2;
       xyGraph.selectAll("circle")
         .data(data)
       .on("click", function(d, i){
-        // console.log(i);
-        // $( "tr:eq(i)" ).addClass( "hot" );
-        $("tr").removeClass("hot");
-        $("tr").eq(i+1).addClass( "hot" );
+        $("tr").removeClass("js-table__tr--highlight");
+        $("tr").eq(i+1).addClass( "js-table__tr--highlight" );
       });
       
       // Graph bar
@@ -118,26 +119,29 @@ var height = window.innerHeight / 2;
           .enter().append("rect")
           .attr("x", function(d) {return x(d.date); })
           .attr("y", function(d) { return y(d.price); })
-          .attr("height", function(d) { return height - y(d.price);})
           // .attr("width", z.rangeBand());
           // .attr("width", x.bandwidth());
-          .attr("width", function(d) {return 2+"vw";});
+          .attr("width", function(d) {return 1+"vw";})
+          .attr("height", function(d) { return height - y(d.price);})
+          .attr("fill","olive");
+          
 
         // Graph bar
         barGraph.selectAll("bar")
             .data(data)
             .attr("x", function(d) {return x(d.date); })
-            .attr("width", function(d) {return 2+"vw";})
+            .attr("width", function(d) {return 1+"vw";})
             // .attr("width", x.bandwidth())
             // .attr("width", z.rangeBand())
             .attr("y", function(d) { return y(d.price); })
-            .attr("height", function(d) {return height - y(d.price);});
+            .attr("height", function(d) {return height - y(d.price);})
+            .attr("fill","olive");
 
           barGraph.selectAll("rect")
             .data(data)
             .on("click", function(d, i) {
-            $("tr").removeClass("hot");
-            $("tr").eq(i+1).addClass( "hot" );
+            $("tr").removeClass("js-table__tr--highlight");
+            $("tr").eq(i+1).addClass( "js-table__tr--highlight" );
           });
 
 

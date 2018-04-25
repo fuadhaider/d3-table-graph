@@ -26,43 +26,28 @@ body nav {
 body p {
   text-align: center;
   font: 2vw arial; }
-body .svg-line-graph {
+body .svg-graph {
   width: 100vw;
   height: 60vh; }
-  body .svg-line-graph .js-svg__g-line-graph {
+  body .svg-graph .svg__g-graph {
     transform: translate(10.5vw, 5vh); }
-    body .svg-line-graph .js-svg__g-line-graph .path-xy-line {
+    body .svg-graph .svg__g-graph .path-xy-line {
       fill: none;
       stroke: brown;
       stroke-width: 2px; }
-    body .svg-line-graph .js-svg__g-line-graph .g-x-axis {
+    body .svg-graph .svg__g-graph .g-x-axis {
       font-size: 1.5vw;
       transform: translate(0, 50vh); }
-    body .svg-line-graph .js-svg__g-line-graph .g-y-axis {
+    body .svg-graph .svg__g-graph .g-y-axis {
       font-size: 2vh; }
-body .svg-bar-graph {
-  width: 100vw;
-  height: 60vh; }
-  body .svg-bar-graph .js-svg__g-bar-graph {
-    transform: translate(10.5vw, 5vh); }
-    body .svg-bar-graph .js-svg__g-bar-graph .g-x-axis {
-      font-size: 1.5vw;
-      transform: translate(0, 50vh); }
-    body .svg-bar-graph .js-svg__g-bar-graph .g-y-axis {
-      font-size: 2vh; }
-
-.hot {
-  border: 1px solid green;
-  background-color: lightgreen; }
-
-#xy-line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 6px; }
-
-.circle {
-  fill: #3ebdb2;
-  /*stroke: #3ebdb2;*/
-  cursor: pointer; }
+    body .svg-graph .svg__g-graph .js--circle {
+      fill: mediumturquoise;
+      cursor: pointer; }
+body .table--center {
+  margin: auto;
+  border: 1px solid lightslategrey; }
+  body .table--center .js-table__tr--highlight {
+    border: 1px solid lightslategrey;
+    background-color: lightsteelblue; }
 
 /*# sourceMappingURL=style.css.map */
