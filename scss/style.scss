@@ -1,0 +1,95 @@
+$svg-line-graph-width: 70vw;
+$svg-line-graph-height: 50vh;
+$svg-line-graph-gap-width: 15vw;
+$svg-line-graph-gap-height: 5vh;
+
+* {
+  margin: 0;
+}
+
+body {
+  header {
+    display: block;
+    background-color: lightslategrey;
+    h1 {
+      font: 2em arial;
+      text-align: center;
+      color: lavender;
+    }
+  }
+  nav {
+    display: block;
+    background-color: lightsteelblue;
+    padding: 5px;
+    text-align: center;
+    button {
+      background-color: lightsteelblue;
+      border: 5px solid white;
+      border-radius: 10px;
+      font-size: 3vw;
+    }
+    button:hover {
+      background-color: lavender;
+      border-color: lightslategrey;
+    }
+    button:active {
+      color: lightgrey;
+    }
+  }
+  p {
+    text-align: center;
+    font: 2vw arial;
+  }
+  .svg-line-graph {
+    width: $svg-line-graph-width + $svg-line-graph-gap-width * 2;
+    height: $svg-line-graph-height + $svg-line-graph-gap-height * 2;
+    .js-svg__g-line-graph {
+      transform: translate($svg-line-graph-gap-width * 0.7, $svg-line-graph-gap-height);      
+      .path-xy-line {
+        fill: none;
+        stroke: brown;
+        stroke-width: 2px;
+      }
+      .g-x-axis {
+        font-size: 1.5vw;
+        transform: translate(0, $svg-line-graph-height);
+      }
+      .g-y-axis {
+        font-size: 2vh;
+      }
+    }    
+  }
+  .svg-bar-graph {
+    width: $svg-line-graph-width + $svg-line-graph-gap-width * 2;
+    height: $svg-line-graph-height + $svg-line-graph-gap-height * 2;
+    .js-svg__g-bar-graph {
+      transform: translate($svg-line-graph-gap-width * 0.7, $svg-line-graph-gap-height);      
+      .g-x-axis {
+        font-size: 1.5vw;
+        transform: translate(0, $svg-line-graph-height);
+      }
+      .g-y-axis {
+        font-size: 2vh;
+      }
+    }    
+  }
+}
+
+.hot {
+  border: 1px solid green;
+  background-color: lightgreen;
+}
+
+
+#xy-line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 6px;
+}
+
+.circle {
+  fill: #3ebdb2;
+  /*stroke: #3ebdb2;*/
+  cursor: pointer;
+
+}

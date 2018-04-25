@@ -17,26 +17,25 @@
     </header>
     
     <nav>
-      <!-- <button id="share" onclick="loadShare()">Share</button>
-      <button id="saving" onclick="loadSaving()">Saving</button>
-      <button id="trend" onclick="loadTrend()">Trend</button> -->
-      <input type="file" id="csv-file" accept=".csv, text/csv">
-      <button type="button" name="button" id="upload-file">Upload</button>
-      <button type="button" name="button" onclick="loadCharts()">Load Chart</button>   
+      <input type="file" class="js-input" accept=".csv, text/csv">
+      <button class="js-button--upload">Load Table</button>
+      <button onclick="loadCharts()">Load Chart</button>   
     </nav>
-    <p>Click on the buttons to see graphs</p>
-    <svg id="line-svg">
-      <g id="xy-graph">
-        <path id="xy-line"></path>
-        <g class="y-axis"></g>
-        <g class="x-axis"></g>
+    <p><b>1. Choose file, 2. load data in bottom table, 3. load or refresh charts</b></p>
+    <p>File format: CSV file with 2 columns: 1st column with date format 
+      31-jan-18, 2nd column with numbers and 1st row with column headings</p>
+    <svg class="svg-line-graph">
+      <g class="js-svg__g-line-graph">
+        <path class="path-xy-line"></path>
+        <g class="g-y-axis"></g>
+        <g class="g-x-axis"></g>
       </g>
     </svg>
-    <svg id="bar-svg">
-      <g id="bar-graph">
+    <svg class="svg-bar-graph">
+      <g class="js-svg__g-bar-graph">
         <!-- <path id="xy-bar"></path> -->
-        <g class="y-axis"></g>
-        <g class="x-axis"></g>
+        <g class="g-y-axis"></g>
+        <g class="g-x-axis"></g>
       </g>
     </svg>
   

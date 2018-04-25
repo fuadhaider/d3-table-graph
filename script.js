@@ -1,32 +1,6 @@
-// // function myFunction() {
-// //     var x = document.getElementById("myFile").value;
-// //     x.disabled = true;
-// //     document.getElementById('x').innerHTML = x;
-// // }
-// // detect a change in a file input with an id of “the-file-input”
-// $("#csv-file").change(function() {
-//     // will log a FileList object, view gifs below
-//     // console.log(this.files);
-//     renderFile(this.files[0]);
-// });
-// 
-// // render the image in our view
-// function renderFile(file) {
-// 
-//   // generate a new FileReader object
-//   var reader = new FileReader();
-// 
-//   // inject an image with the src url
-//   reader.onload = function(event) {
-//     url = event.target.result
-//     $('#table-container').html("<img src='" + url + "' />")
-//   }
-// 
-//   // when the file is read it triggers the onload event above.
-//   reader.readAsDataURL(file);
-// }
+
 $( document ).ready(function() {
-  $('#upload-file').click(function () {
+  $('.js-button--upload').click(function () {
     $("#tableMain tr").remove();
     var rdr = new FileReader();
     // console.log(rdr); // rdr null object
@@ -50,7 +24,7 @@ $( document ).ready(function() {
         $('#tableMain').append(newrow);						
       }
     }
-    rdr.readAsText($("#csv-file")[0].files[0]);
+    rdr.readAsText($(".js-input")[0].files[0]);
     //read first line of file
   });
 });      
@@ -60,37 +34,11 @@ $( document ).ready(function() {
 var width = window.innerWidth * 0.8;
 var height = window.innerHeight / 2;
 
-// parsing date with month name
-// var parseTime = d3.timeParse("%d-%b-%y");
-// 
-// // setting x y ranges
-// var x = d3.scaleTime().range([0, width]);
-// var y = d3.scaleLinear().range([height, 0]);
-//  
-// var xyGraph = d3.select("#xy-graph"); 
-// 
-// // Getting CSV data
-// // function loadCSV(url) {
-//   // console.log(url);
-//   
-//   // defining graph line
-//   var valueline = d3.line()
-//       .x(function(d) { return x(d.date); })
-//       .y(function(d) { return y(d.price); });
+
 
   // d3.csv(url).then(function(data {
   function loadCharts() {
-    // var data = $('tbody tr').first().find('td:eq(0)').toArray();
-    
-    // var data;
-    // $('#tableMain tr').each(function(row, tr){
-    // data = data 
-    //     + $(tr).find('td:eq(0)').text() + ' '  // Task No.
-    //     + $(tr).find('td:eq(1)').text() + ' '  // Date
-    //     // + $(tr).find('td:eq(2)').text() + ' '  // Description
-    //     // + $(tr).find('td:eq(3)').text() + ' '  // Task
-    //     + '\n';
-    // });
+  
     // parsing date with month name
     var parseTime = d3.timeParse("%d-%b-%y");
 
@@ -98,12 +46,11 @@ var height = window.innerHeight / 2;
     var x = d3.scaleTime().range([0, width]);
     var y = d3.scaleLinear().range([height, 0]);
      
-    var xyGraph = d3.select("#xy-graph"); 
-    var barGraph = d3.select("#bar-graph");
+    var xyGraph = d3.select(".js-svg__g-line-graph"); 
+    var barGraph = d3.select(".js-svg__g-bar-graph");
 
     // Getting CSV data
-    // function loadCSV(url) {
-      // console.log(url);
+    
       
       // defining graph line
       var valueline = d3.line()
@@ -116,14 +63,11 @@ var height = window.innerHeight / 2;
         data[row] = {
             "date" : $(tr).find('td:eq(0)').text()
             , "price" :$(tr).find('input').val()
-            // , "description" : $(tr).find('td:eq(2)').text()
-            // , "task" : $(tr).find('td:eq(3)').text()
         }
     }); 
     data.shift();  // first row is the table header - so remove
     //data array of date and price objects
      
-    // console.log(data);
     // formatting data
     data.forEach(function(d) {
         d.date = parseTime(d.date);
@@ -136,9 +80,8 @@ var height = window.innerHeight / 2;
     y.domain([0, d3.max(data, function(d) { return d.price; })]);
 
     // Graph line path.
-    xyGraph.select("path")
+    xyGraph.select(".path-xy-line")
         .data([data])
-        // .attr("id", "xy-line")
         .attr("d", valueline);
         
     xyGraph.selectAll("circle")
@@ -164,12 +107,7 @@ var height = window.innerHeight / 2;
         // console.log(i);
         // $( "tr:eq(i)" ).addClass( "hot" );
         $("tr").removeClass("hot");
-        $("tr").eq(i).addClass( "hot" );
-
-        // $( "tr:eq( i )" ).css( "background-color", "red" );
-        // console.log(data.indexof(d.price));
-        // $('tr').addClass('hot' );
-        
+        $("tr").eq(i+1).addClass( "hot" );
       });
       
       // Graph bar
@@ -182,9 +120,11 @@ var height = window.innerHeight / 2;
           })
           .attr("y", function(d) { return y(d.price); })
           .attr("height", function(d) { 
-            var h = 1000;
+            // var h = 300;
             // return h+"px";
-            return h - y(d.price);
+            return height - y(d.price);
+            // return y(d.price);
+
           });
           
         // Graph bar
@@ -206,36 +146,23 @@ var height = window.innerHeight / 2;
             .data(data)
             .on("click", function(d, i) {
             $("tr").removeClass("hot");
-            $("tr").eq(i).addClass( "hot" );
+            $("tr").eq(i+1).addClass( "hot" );
           });
-    // xyGraph.select("path")    
-    //     .on("mouseover", function(data){
-    //       path.select("td").addClass("hot");
-    //     })
-    
-    // $("circle").on( "click", function() {
-    //   // alert("here");
-    //   xyGraph.select("circle")
-    //     .data(data)
-    //     .attr("cx", function(d) { return x(d.date); })
-    //     .attr("cy", function(d) { return y(d.price); });
-    //   console.log(d.date);
-    // });
+
 
     // X Axis
-    xyGraph.select(".x-axis")
+    xyGraph.select(".g-x-axis")
         .call(d3.axisBottom(x));
 
     // Y Axis
-    xyGraph.select(".y-axis")
+    xyGraph.select(".g-y-axis")
         .call(d3.axisLeft(y));
         
     // X Axis
-    barGraph.select(".x-axis")
+    barGraph.select(".g-x-axis")
         .call(d3.axisBottom(x));
 
     // Y Axis
-    barGraph.select(".y-axis")
+    barGraph.select(".g-y-axis")
         .call(d3.axisLeft(y));
-  // });
 }

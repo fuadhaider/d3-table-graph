@@ -1,21 +1,68 @@
+* {
+  margin: 0; }
 
+body header {
+  display: block;
+  background-color: lightslategrey; }
+  body header h1 {
+    font: 2em arial;
+    text-align: center;
+    color: lavender; }
+body nav {
+  display: block;
+  background-color: lightsteelblue;
+  padding: 5px;
+  text-align: center; }
+  body nav button {
+    background-color: lightsteelblue;
+    border: 5px solid white;
+    border-radius: 10px;
+    font-size: 3vw; }
+  body nav button:hover {
+    background-color: lavender;
+    border-color: lightslategrey; }
+  body nav button:active {
+    color: lightgrey; }
+body p {
+  text-align: center;
+  font: 2vw arial; }
+body .svg-line-graph {
+  width: 100vw;
+  height: 60vh; }
+  body .svg-line-graph .js-svg__g-line-graph {
+    transform: translate(10.5vw, 5vh); }
+    body .svg-line-graph .js-svg__g-line-graph .path-xy-line {
+      fill: none;
+      stroke: brown;
+      stroke-width: 2px; }
+    body .svg-line-graph .js-svg__g-line-graph .g-x-axis {
+      font-size: 1.5vw;
+      transform: translate(0, 50vh); }
+    body .svg-line-graph .js-svg__g-line-graph .g-y-axis {
+      font-size: 2vh; }
+body .svg-bar-graph {
+  width: 100vw;
+  height: 60vh; }
+  body .svg-bar-graph .js-svg__g-bar-graph {
+    transform: translate(10.5vw, 5vh); }
+    body .svg-bar-graph .js-svg__g-bar-graph .g-x-axis {
+      font-size: 1.5vw;
+      transform: translate(0, 50vh); }
+    body .svg-bar-graph .js-svg__g-bar-graph .g-y-axis {
+      font-size: 2vh; }
 
-/*# sourceMappingURL=style.css.map */
 .hot {
   border: 1px solid green;
-  background-color: lightgreen;
-}
-
+  background-color: lightgreen; }
 
 #xy-line {
   fill: none;
   stroke: steelblue;
-  stroke-width: 6px;
-}
+  stroke-width: 6px; }
 
 .circle {
   fill: #3ebdb2;
   /*stroke: #3ebdb2;*/
-  cursor: pointer;
+  cursor: pointer; }
 
-}
+/*# sourceMappingURL=style.css.map */
