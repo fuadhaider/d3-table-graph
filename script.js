@@ -55,7 +55,8 @@ function loadCharts() {
         , "value" :$(tr).find('input').val()
     }
   }); 
-  data.shift();  // removing CSV header
+  // removing CSV header
+  data.shift();
 
   // formatting data
   data.forEach(function(d) {
@@ -93,13 +94,13 @@ function loadCharts() {
   //click interaction with table
   xyGraph.selectAll("circle")
     .data(data)
-  .on("click", function(d, i){
+    .on("click", function(d, i){
     $("tr").removeClass("js-table__tr--highlight");
-    $("tr").eq(i+1).addClass( "js-table__tr--highlight" );
+    $("tr").eq(i+1).addClass("js-table__tr--highlight");
   });
 
   // Graph bar
-  barGraph.selectAll("bar")
+  barGraph.selectAll("rect")
       .data(data)
       .enter().append("rect")
       .attr("x", function(d) {return x(d.date); })
@@ -111,7 +112,7 @@ function loadCharts() {
       .attr("fill","olive");
       
   // Graph bar
-  barGraph.selectAll("bar")
+  barGraph.selectAll("rect")
       .data(data)
       .attr("x", function(d) {return x(d.date); })
       .attr("width", function(d) {return 1+"vw";})
@@ -126,7 +127,7 @@ function loadCharts() {
     .data(data)
     .on("click", function(d, i) {
     $("tr").removeClass("js-table__tr--highlight");
-    $("tr").eq(i+1).addClass( "js-table__tr--highlight" );
+    $("tr").eq(i+1).addClass("js-table__tr--highlight");
   });
 
   // line X Axis
