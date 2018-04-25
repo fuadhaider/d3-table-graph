@@ -160,8 +160,13 @@ var height = window.innerHeight / 2;
       
       xyGraph.selectAll("circle")
         .data(data)
-      .on("click", function(d){
-        console.log(d.price);
+      .on("click", function(d, i){
+        // console.log(i);
+        // $( "tr:eq(i)" ).addClass( "hot" );
+        $("tr").removeClass("hot");
+        $("tr").eq(i).addClass( "hot" );
+
+        // $( "tr:eq( i )" ).css( "background-color", "red" );
         // console.log(data.indexof(d.price));
         // $('tr').addClass('hot' );
         
@@ -181,7 +186,28 @@ var height = window.innerHeight / 2;
             // return h+"px";
             return h - y(d.price);
           });
+          
+        // Graph bar
+        barGraph.selectAll("bar")
+            .data(data)
+            // .enter().append("rect")
+            .attr("x", function(d) {return x(d.date); })
+            .attr("width", function(d) { 
+              return 10+"px";
+            })
+            .attr("y", function(d) { return y(d.price); })
+            .attr("height", function(d) { 
+              var h = 1000;
+              // return h+"px";
+              return h - y(d.price);
+            });
 
+          barGraph.selectAll("rect")
+            .data(data)
+            .on("click", function(d, i) {
+            $("tr").removeClass("hot");
+            $("tr").eq(i).addClass( "hot" );
+          });
     // xyGraph.select("path")    
     //     .on("mouseover", function(data){
     //       path.select("td").addClass("hot");
