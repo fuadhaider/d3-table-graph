@@ -2,7 +2,8 @@ $svg-line-graph-width: 70vw;
 $svg-line-graph-height: 50vh;
 $svg-line-graph-gap-width: 15vw;
 $svg-line-graph-gap-height: 5vh;
-
+$dark-color: lightslategrey;
+$light-color: lightsteelblue;
 * {
   margin: 0;
 }
@@ -10,7 +11,7 @@ $svg-line-graph-gap-height: 5vh;
 body {
   header {
     display: block;
-    background-color: lightslategrey;
+    background-color: $dark-color;
     h1 {
       font: 4vw arial;
       text-align: center;
@@ -19,18 +20,18 @@ body {
   }
   nav {
     display: block;
-    background-color: lightsteelblue;
+    background-color: $light-color;
     padding: 5px;
     text-align: center;
     button {
-      background-color: lightsteelblue;
+      background-color: $light-color;
       border: 5px solid white;
       border-radius: 10px;
       font-size: 3vw;
     }
     button:hover {
       background-color: lavender;
-      border-color: lightslategrey;
+      border-color: $dark-color;
     }
     button:active {
       color: lightgrey;
@@ -45,7 +46,7 @@ body {
     bottom: 5vh;
     right: 5vw;
     z-index: 5;
-    background-color: lightslategrey;
+    background-color: $dark-color;
     padding: 5px;
     border-radius: 5px;
     a {
@@ -79,10 +80,10 @@ body {
   }
   .table--center {
     margin: auto;
-    border: 1px solid lightslategrey;
+    border: 1px solid $dark-color;
     .js-table__tr--highlight {
-      border: 1px solid lightslategrey;
-      background-color: lightsteelblue;
+      border: 1px solid $dark-color;
+      background-color: $light-color;
     }
   }
 }
