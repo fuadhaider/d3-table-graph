@@ -45,7 +45,8 @@ var height = window.innerHeight / 2;
     // setting x y ranges
     var x = d3.scaleTime().range([0, width]);
     var y = d3.scaleLinear().range([height, 0]);
-     
+    // var z = d3.scaleBand().rangeRound([0, width], .05).padding(0.1);
+
     var xyGraph = d3.select(".js-svg__g-line-graph"); 
     var barGraph = d3.select(".js-svg__g-bar-graph");
 
@@ -78,6 +79,7 @@ var height = window.innerHeight / 2;
     // Scaling range of data
     x.domain(d3.extent(data, function(d) { return d.date; }));
     y.domain([0, d3.max(data, function(d) { return d.price; })]);
+    // z.domain(data.map(function(d) { return d.date; }));
 
     // Graph line path.
     xyGraph.select(".path-xy-line")
@@ -115,32 +117,21 @@ var height = window.innerHeight / 2;
           .data(data)
           .enter().append("rect")
           .attr("x", function(d) {return x(d.date); })
-          .attr("width", function(d) { 
-            return 10+"px";
-          })
           .attr("y", function(d) { return y(d.price); })
-          .attr("height", function(d) { 
-            // var h = 300;
-            // return h+"px";
-            return height - y(d.price);
-            // return y(d.price);
+          .attr("height", function(d) { return height - y(d.price);})
+          // .attr("width", z.rangeBand());
+          // .attr("width", x.bandwidth());
+          .attr("width", function(d) {return 2+"vw";});
 
-          });
-          
         // Graph bar
         barGraph.selectAll("bar")
             .data(data)
-            // .enter().append("rect")
             .attr("x", function(d) {return x(d.date); })
-            .attr("width", function(d) { 
-              return 10+"px";
-            })
+            .attr("width", function(d) {return 2+"vw";})
+            // .attr("width", x.bandwidth())
+            // .attr("width", z.rangeBand())
             .attr("y", function(d) { return y(d.price); })
-            .attr("height", function(d) { 
-              var h = 1000;
-              // return h+"px";
-              return h - y(d.price);
-            });
+            .attr("height", function(d) {return height - y(d.price);});
 
           barGraph.selectAll("rect")
             .data(data)
