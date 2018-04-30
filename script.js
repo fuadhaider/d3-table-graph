@@ -1,34 +1,49 @@
-//Load CSV in browser and create data table
-$( document ).ready(function() {
-  $('.js-button--upload').click(function () {
-    //remove previous table data
-    $("#js-table tr").remove();
+// Load CSV in browser and create data array
+$(document).ready(function() {
+  $('.js-button--load').click(function(){
+    readFile();
+  });
+  
+  //read uploaded file
+  function readFile() {
     var reader = new FileReader();
-    reader.onload = function(e) {
-      var therows = e.target.result.split("\n");
-      //get the rows into an array
-      var newrow = "";
-      var columns = therows[0].split(",");
-      //insert CSV header
-      newrow = "<tr><td>" + columns[0] + "</td><td>" + columns[1] +"</td></tr>";  
-      $('#js-table').append(newrow);
-      //insert rest of CSV data looping through the rows
-      for (var row = 1; row < therows.length; row++) {
-        //build a new table row
-        newrow = "";
-        //get the column cells of each row into individual arrays
-        columns = therows[row].split(",");
-        //with input tag
-        newrow = "<tr><td>" + columns[0] + "</td><td><input value=\"" +
-        columns[1] + "\"></td></tr>";  
-        $('#js-table').append(newrow);						
-      }
+    reader.onload = function(event) {
+      var file = event.target.result;
+      processFile(file);
     }
     reader.readAsText($(".js-input")[0].files[0]);
-  });
+  }
+  
+  // process csv file into array
+  function processFile(file) {
+    var rows = file.split("\n");
+    var cells = [];
+    cells[0] = rows[0].split(',');
+    for (var i = 0; i < rows.length; i++) {
+      cells[i] = rows[i].split(',');
+    }
+    loadTable(rows, cells);
+    loadCharts();
+  }
+  
+  function loadTable(rows, cells) {
+    // var cells = cells;
+    // remove previous table data
+    $("#js-table tr").remove();
+    var newrow = "";
+    //insert CSV header
+    newrow = "<tr><td>" + cells[0][0] + "</td><td>" + cells[0][1] +"</td></tr>";  
+    $('#js-table').append(newrow);
+    //insert rest of CSV data looping through the rows
+    for (var i = 1; i < rows.length; i++) {
+      newrow = "<tr><td>" + cells[i][0] + "</td>" + "<td><input value=\"" 
+      + cells[i][1] + "\"></td></tr>";
+      $('#js-table').append(newrow);
+    }
+  }
 });      
 
-//creating graphs
+//creating charts
 function loadCharts() {
   // taking window measurements
   var width = window.innerWidth * 0.8;
@@ -110,8 +125,8 @@ function loadCharts() {
       .attr("width", function(d) {return 1+"vw";})
       .attr("height", function(d) { return height - y(d.value);})
       .attr("fill","olive");
-      
-  // Graph bar
+     
+  // update graph bar
   barGraph.selectAll("rect")
       .data(data)
       .attr("x", function(d) {return x(d.date); })
@@ -145,4 +160,5 @@ function loadCharts() {
   // bar Y Axis
   barGraph.select(".g-y-axis")
       .call(d3.axisLeft(y));
+        
 }
